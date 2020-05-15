@@ -1,3 +1,48 @@
-<p>
-  progress works!
-</p>
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Barra de progreso</h4>
+        <div class="progress">
+          <div
+            class="progress-bar progress-bar-striped progress-bar-animated"
+            role="progressbar"            
+            [attr.ariaValueNow]="progress1"
+            [attr.valueMin]="minProgress"
+            [attr.valueMax]="maxProgress"
+            [style.width]="progress1 + '%'"
+          ></div>
+        </div>
+        <div class="progress mt-3">
+          <div
+            class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+            role="progressbar"            
+            [attr.ariaValueNow]="progress2"
+            [attr.valueMin]="minProgress"
+            [attr.valueMax]="maxProgress"
+            [style.width]="progress2 + '%'"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <!--Tarjeta 1-->
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+       <app-incrementador leyenda="primary" [progress]="progress1" (progressValueChanged)="this.progress1 = $event"></app-incrementador>
+      </div>
+    </div>
+  </div>
+  <!--Tarjeta 2-->
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <app-incrementador leyenda="danger" [progress]="progress2" (progressValueChanged)="this.progress2 = $event"></app-incrementador>
+      </div>
+    </div>
+  </div>
+</div>
