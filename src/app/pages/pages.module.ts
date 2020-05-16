@@ -8,6 +8,7 @@ import { PAGES_ROUTES } from './pages.routes';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { PromesasComponent } from './promesas/promesas.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
     Graficas1Component,
     PagesComponent,
     IncrementadorComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    PromesasComponent
   ],
   exports: [
     DashboardComponent,
