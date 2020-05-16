@@ -1,0 +1,7 @@
+{
+    "html.format.extraLiners": "",
+    
+    "html.format.wrapLineLength": 0,
+    "terminal.integrated.shellArgs.windows": null,
+    "prettier.printWidth": 300
+}
