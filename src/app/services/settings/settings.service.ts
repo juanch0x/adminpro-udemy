@@ -22,6 +22,11 @@ export class SettingsService {
       document.getElementById('tema').setAttribute('href', this.ajustes.temaUrl);
     }
   }
+
+  crearUrl(styleName: string): string {
+    const BASE_PATH: string = 'assets/css/colors/{path}.css';
+    return BASE_PATH.replace('{path}', styleName);
+  }
 }
 
 interface Ajustes {
