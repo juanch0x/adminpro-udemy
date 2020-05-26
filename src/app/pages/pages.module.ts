@@ -11,10 +11,11 @@ import { IncrementadorComponent } from '../components/incrementador/incrementado
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { ProfileComponent } from './profile/profile.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [DashboardComponent, ProgressComponent, Graficas1Component, PagesComponent, IncrementadorComponent, AccountSettingsComponent, PromesasComponent, ProfileComponent],
   exports: [DashboardComponent, ProgressComponent, Graficas1Component, PagesComponent],
-  imports: [SharedModule, PAGES_ROUTES, FormsModule, PipesModule]
+  imports: [SharedModule, PAGES_ROUTES, FormsModule, PipesModule, CommonModule]
 })
 export class PagesModule {}

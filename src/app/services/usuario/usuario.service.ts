@@ -1,3 +1,4 @@
+import { ArchivoService } from './../archivo/archivo.service';
 import { SwalOptions, swalInLine } from './../../extensions/swal';
 import { Usuario } from './../../models/usuario.model';
 import { map } from 'rxjs/operators';
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UsuarioService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private _ArchivoService: ArchivoService) {
     this.loadLocalStorage();
   }
 
@@ -77,6 +78,25 @@ export class UsuarioService {
     );
   }
 
+  /**
+   * Método para cmabiar la imagen de un usuario.
+   * @param file Nueva imagen para el usuario
+   * @param id Id del usuario
+   */
+  public cambiarImagen(file: File, id: string) {
+    this._ArchivoService
+      .subirArchivo(file, 'usuarios', id)
+      .then((x:any) => {
+        const usuario = <Usuario>x.usuario;
+        this.usuario.img = usuario.img;
+        swalInLine('Imagen actualizada', this.usuario.nombre, 'info');
+        this.saveInLocalStorage(this.usuario._id,this.token, this.usuario);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   public logOut(): void {
     localStorage.removeItem(KeysLocalStorage.Usuario.token);
     localStorage.removeItem(KeysLocalStorage.Usuario.user);
@@ -90,7 +110,7 @@ export class UsuarioService {
     return this.http.post(url, { token: token }).pipe(
       map((x: any) => {
         const usuario = <Usuario>x.usuario;
-        this.saveInLocalStorage(usuario._id, x.token, usuario);        
+        this.saveInLocalStorage(usuario._id, x.token, usuario);
         return true;
       })
     );

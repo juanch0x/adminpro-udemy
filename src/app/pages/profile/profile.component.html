@@ -29,14 +29,21 @@
   </div>
 
   <div class="col-lg-4">
-    <div class="card">
+    <div class="card text-center">      
       <div class="card-body">
         <h4 class="card-title">Fotografía del usuario</h4>
         <h6 class="card-subtitle">nombre del usuario</h6>
-        <img src="" alt="">
-        <input type="file"> 
+
+
+
+        <img *ngIf="!imagenTemp" [src]="usuario.img | imagen" width="150px" alt="">
+        <img *ngIf="imagenTemp" [src]="imagenTemp" width="150px" alt="">
+
+
+
+        <input (change)="seleccionImagen($event.target.files[0])" type="file" class="mt-3"> 
         
-        <button type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10 mt-3">
+        <button  (click)="cambiarImagen()" [disabled]="!imagenSubir" type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10 mt-3">
           <i class="fa fa-save"></i>
           Actualizar foto
         </button>
