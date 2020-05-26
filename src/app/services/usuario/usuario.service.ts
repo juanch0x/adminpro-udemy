@@ -1,4 +1,4 @@
-import { SwalOptions } from './../../extensions/swal';
+import { SwalOptions, swalInLine } from './../../extensions/swal';
 import { Usuario } from './../../models/usuario.model';
 import { map } from 'rxjs/operators';
 import { URL_SERVICIOS, KeysLocalStorage } from './../../config/config';
@@ -52,8 +52,26 @@ export class UsuarioService {
         swal({
           title: '¡Perfecto!',
           text: `El usuario ${usuario.email} se creó correctamente!`,
-          icon: 'success',
+          icon: 'success'
         });
+        return usuario;
+      })
+    );
+  }
+
+  public actualizarUsuario(usuario: Usuario): Observable<Usuario> {
+    const url = URL_SERVICIOS + '/usuarios/' + this.usuario._id + '?token=' + this.token;
+    return this.http.put(url, usuario).pipe(
+      map((x: any) => {
+        const usuario = <Usuario>x.usuario;
+        this.saveInLocalStorage(usuario._id, this.token, usuario);
+        const swalOptions: SwalOptions = {
+          text: `El usuario ${usuario.nombre} fué modificado correctamente.`,
+          title: 'Éxito',
+          icon: 'success'
+        };
+        swal(swalOptions);
+
         return usuario;
       })
     );
@@ -72,7 +90,7 @@ export class UsuarioService {
     return this.http.post(url, { token: token }).pipe(
       map((x: any) => {
         const usuario = <Usuario>x.usuario;
-        this.saveInLocalStorage(usuario._id, x.token, usuario);
+        this.saveInLocalStorage(usuario._id, x.token, usuario);        
         return true;
       })
     );

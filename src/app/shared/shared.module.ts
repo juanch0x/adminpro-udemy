@@ -1,3 +1,4 @@
+import { PipesModule } from './../pipes/pipes.module';
 import { NgModule } from '@angular/core';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { HeaderComponent } from './header/header.component';
@@ -7,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, PipesModule],
   declarations: [BreadcrumbsComponent, HeaderComponent, NopagefoundComponent, SidebarComponent],
   exports: [BreadcrumbsComponent, HeaderComponent, NopagefoundComponent, SidebarComponent],
 })

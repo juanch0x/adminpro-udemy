@@ -1,3 +1,4 @@
+import { ProfileComponent } from './profile/profile.component';
 import { Routes, RouterModule } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -18,6 +19,7 @@ const pagesRoutes: Routes = [
       { path: 'graficas1', component: Graficas1Component, data: { titulo: 'Gráficas' } },
       { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' }},
       { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Account Settings' } },
+      { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil' }},
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     ],
   },

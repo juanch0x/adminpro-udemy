@@ -62,8 +62,6 @@ export class LoginComponent implements OnInit {
       .subscribe(x => {
         window.location.href = '#/dashboard';
       });
-
-      console.log(token);
     });
   }
 

@@ -13,7 +13,7 @@ import { ServiceModule } from './services/service.module';
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, ],
+  declarations: [AppComponent, LoginComponent, RegisterComponent,  ],
   imports: [BrowserModule, PagesModule, APP_ROUTES, FormsModule, ServiceModule, ReactiveFormsModule],
   bootstrap: [AppComponent],
 })
