@@ -60,6 +60,10 @@ export class UsuarioService {
     );
   }
 
+  /**
+   * Método para actualizar el usuario actual.
+   * @param usuario NUevos datos a actualizar.
+   */
   public actualizarUsuario(usuario: Usuario): Observable<Usuario> {
     const url = URL_SERVICIOS + '/usuarios/' + this.usuario._id + '?token=' + this.token;
     return this.http.put(url, usuario).pipe(
@@ -77,6 +81,25 @@ export class UsuarioService {
       })
     );
   }
+  /**
+   * Método para actualizar un usuario existente.
+   * @param usuario NUevos datos a actualizar.
+   */
+  public actualizarUsuarioByAdmin(usuario: Usuario): Observable<Usuario> {
+    const url = URL_SERVICIOS + '/usuarios/' + usuario._id + '?token=' + this.token;
+    return this.http.put(url, usuario).pipe(
+      map((x: any) => {
+        const usuario = <Usuario>x.usuario;        
+        const swalOptions: SwalOptions = {
+          text: `El usuario ${usuario.nombre} fué modificado correctamente.`,
+          title: 'Éxito',
+          icon: 'success'
+        };
+        swal(swalOptions);
+        return usuario;
+      })
+    );
+  }
 
   /**
    * Método para cmabiar la imagen de un usuario.
@@ -86,17 +109,20 @@ export class UsuarioService {
   public cambiarImagen(file: File, id: string) {
     this._ArchivoService
       .subirArchivo(file, 'usuarios', id)
-      .then((x:any) => {
+      .then((x: any) => {
         const usuario = <Usuario>x.usuario;
         this.usuario.img = usuario.img;
         swalInLine('Imagen actualizada', this.usuario.nombre, 'info');
-        this.saveInLocalStorage(this.usuario._id,this.token, this.usuario);
+        this.saveInLocalStorage(this.usuario._id, this.token, this.usuario);
       })
       .catch((error) => {
         console.error(error);
       });
   }
 
+  /**
+   * Método para realizar Logout.
+   */
   public logOut(): void {
     localStorage.removeItem(KeysLocalStorage.Usuario.token);
     localStorage.removeItem(KeysLocalStorage.Usuario.user);
@@ -105,6 +131,10 @@ export class UsuarioService {
     window.location.reload();
   }
 
+  /**
+   * Login/Registro vía google.
+   * @param token Token proporcionado por el servicio de Google
+   */
   public loginGoogle(token: string): Observable<any> {
     const url = URL_SERVICIOS + '/login/google';
     return this.http.post(url, { token: token }).pipe(
@@ -141,5 +171,36 @@ export class UsuarioService {
       this.token = null;
       this.usuario = null;
     }
+  }
+
+  // ================= //
+
+  cargarUsuarios(desde: number = 0): Observable<any> {
+    const url = URL_SERVICIOS + '/usuarios?desde=' + desde;
+    return this.http.get(url);
+  }
+
+  buscarUsuarios(term: string): Observable<Usuario[]> {
+    const url = URL_SERVICIOS + '/busqueda/coleccion/usuario/' + term;
+    return this.http.get(url).pipe(map((x: any) => <Usuario[]>x.usuarios));
+  }
+
+  borrarUsuario(id: string): Observable<any> {
+    if (id === this.usuario._id) {
+      return null;
+    }
+
+    const url = URL_SERVICIOS + '/usuarios/' + id + '?token=' + this.token;
+    console.log(url);
+    return this.http.delete(url).pipe(
+      map((x: any) => {
+        console.log(x);
+        if (x.ok === true) {
+          swalInLine('Usuario eliminado', 'el usuario fue eliminado correctamente', 'success');
+          return true;
+        }
+        return false;
+      })
+    );
   }
 }

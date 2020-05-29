@@ -7,8 +7,8 @@ const swalHelper = _swal as any;
  * Método para disparar un sweetalert de manera convencional.
  * @param parameters Parámetros obligatorios para disparar un sweetalert.
  */
-export function swal(parameters: SwalOptions) {
-  swalHelper(parameters);
+export function swal(parameters: SwalOptions): Promise<boolean> {
+  return swalHelper(parameters);
 }
 
 /**
@@ -26,4 +26,6 @@ export interface SwalOptions {
   text: string;
   icon: 'warning' | 'error' | 'success' | 'info';
   button?: string;
+  buttons?: boolean;
+  dangerMode?: boolean;
 }

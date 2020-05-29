@@ -11,10 +11,9 @@ import { PagesModule } from './pages/pages.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServiceModule } from './services/service.module';
 
-
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent,  ],
+  declarations: [AppComponent, LoginComponent, RegisterComponent],
   imports: [BrowserModule, PagesModule, APP_ROUTES, FormsModule, ServiceModule, ReactiveFormsModule],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

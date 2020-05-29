@@ -1,3 +1,4 @@
+import { ModalUploadComponent } from './../components/modal-upload/modal-upload.component';
 import { PipesModule } from './../pipes/pipes.module';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -12,9 +13,10 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromesasComponent } from './promesas/promesas.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CommonModule } from '@angular/common';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 @NgModule({
-  declarations: [DashboardComponent, ProgressComponent, Graficas1Component, PagesComponent, IncrementadorComponent, AccountSettingsComponent, PromesasComponent, ProfileComponent],
+  declarations: [DashboardComponent, ProgressComponent, Graficas1Component, PagesComponent, IncrementadorComponent, AccountSettingsComponent, PromesasComponent, ProfileComponent, UsuariosComponent, ModalUploadComponent],
   exports: [DashboardComponent, ProgressComponent, Graficas1Component, PagesComponent],
   imports: [SharedModule, PAGES_ROUTES, FormsModule, PipesModule, CommonModule]
 })

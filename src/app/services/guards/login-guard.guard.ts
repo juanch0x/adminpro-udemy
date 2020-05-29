@@ -8,7 +8,6 @@ export class LoginGuardGuard implements CanActivate {
 
   canActivate(): boolean {
     if (this._usuarioService.IsLoggedIn) {
-      console.log('El usuario está logueado y tiene permiso de acceso.');
       return true;
     } else {
       this._router.navigate(['/login']);

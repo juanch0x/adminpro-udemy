@@ -1,3 +1,4 @@
+import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ProfileComponent } from './profile/profile.component';
 import { Routes, RouterModule } from '@angular/router';
 import { PagesComponent } from './pages.component';
@@ -20,6 +21,9 @@ const pagesRoutes: Routes = [
       { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' }},
       { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Account Settings' } },
       { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil' }},
+
+      // Mantenimiento
+      { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios' } },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     ],
   },
