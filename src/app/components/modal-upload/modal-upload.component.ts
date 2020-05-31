@@ -51,17 +51,17 @@ export class ModalUploadComponent implements OnInit {
     const reader = new FileReader();
     reader.readAsDataURL(archivo);
     reader.onloadend = () => (this.imagenTemp = reader.result);
-
   }
 
   subirImagen() {
-    this._archivoService.subirArchivo(this.imagenSubir, this._modalUploadService.tipo, this._modalUploadService.id)
-      .then(x => {
+    this._archivoService
+      .subirArchivo(this.imagenSubir, this._modalUploadService.tipo, this._modalUploadService.id)
+      .then((x) => {
         this._modalUploadService.notificacion.emit(x);
         this.cerrarModal();
       })
-      .catch(error => {
-        console.error('Error en la carga', error)
+      .catch((error) => {
+        console.error('Error en la carga', error);
       });
   }
 }

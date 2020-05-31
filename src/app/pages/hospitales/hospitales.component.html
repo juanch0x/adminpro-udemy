@@ -1,0 +1,67 @@
+<!-- busqueda -->
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input #input (keyup)="buscarHospital(input.value)" type="text" class="form-control" placeholder="Buscar hospital" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tabla -->
+<div class="row animated fadeIn">  
+  
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">
+          <div class="row">
+
+            <div class="col-9">
+  
+              Hospitales Registrados (<small>{{ total }}</small>)
+            </div>
+            <div class="col-3">
+  
+              <button (click)="agregarHospital()"  class="btn btn-primary btn-rounded">Crear hospital</button>
+            </div>
+          </div>
+          </h3>
+
+
+
+        <table class="table table-hover">
+          <!-- THEAD -->
+          <thead>
+            <tr>
+              <td>Imagen</td>
+              <td>Hospital</td>
+              <td></td>
+            </tr>
+          </thead>
+          <!-- TBODY -->
+          <tbody>
+            <tr *ngFor="let hospital of hospitales">
+              <td class="w-70"><img (click)="cambiarImagen(hospital._id)"  class="img-50 img-circle pointer" [src]="hospital.img | imagen: 'hospital'" /></td>
+              <td>
+                <input [(ngModel)]="hospital.nombre" type="text" class="form-control" />
+              </td>
+              <td>
+                <button class="btn btn-primary" (click)="guardarHospital(hospital)"><i class="fa fa-save"></i></button>
+                <button class="btn btn-danger" (click)="borrarHospital(hospital._id)"><i class="fa fa-trash-o"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="paginacion" *ngIf="!filtered">
+
+          <button  (click)="cambiarPagina(-5)" [disabled]="desde <= 0" class="btn btn-secondary">Anterior</button>
+          <button  (click)="cambiarPagina(5)" [disabled]="(desde+5) >= total " class="btn btn-secondary">Siguiente</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

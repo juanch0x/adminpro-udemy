@@ -5,9 +5,9 @@ import { XhrFactory } from '@angular/common/http';
 @Injectable()
 export class ArchivoService {
   constructor() {}
+
   subirArchivo(archivo: File, tipo: string, id: string) {
     const url = `${URL_SERVICIOS}/upload/${tipo}/${id}`;
-
     return new Promise((resolve, reject) => {
       const formData = new FormData();
       const xhr = new XMLHttpRequest();
@@ -16,7 +16,6 @@ export class ArchivoService {
         // sólo valido que haya terminado, sino lo puedo usar para hacer un loader
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
-            console.log('imágen subida');
             resolve(JSON.parse(xhr.response));
           } else {
             console.error('Falló la subida de imágen.', xhr.response);

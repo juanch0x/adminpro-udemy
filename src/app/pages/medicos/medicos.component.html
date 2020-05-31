@@ -1,0 +1,64 @@
+<!-- busqueda -->
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input #input (keyup)="filtrarMedicos(input.value)" type="text" class="form-control" placeholder="Buscar médico" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tabla -->
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">
+          <div class="row">
+            <div class="col-10">
+              Médicos Registrados (<small>{{ total }}</small
+              >)
+            </div>
+            <div class="col-2">
+              <div class="float-right">
+                <button class="btn btn-primary btn-rounded" routerLink="/medico"><i class="fa fa-plus"></i> Agregar Médico</button>
+              </div>
+            </div>
+          </div>
+        </h3>
+
+        <table class="table table-hover">
+          <!-- THEAD -->
+          <thead>
+            <tr>
+              <th>Foto</th>
+              <th>Médico</th>
+              <th>Hospital</th>
+              <th></th>
+            </tr>
+          </thead>
+          <!-- TBODY -->
+          <tbody>
+            <tr *ngFor="let medico of medicos">
+              <td>
+                <img [src]="medico.img | imagen: 'medico'" alt="{{ medico.nombre }}" class="img-50 img-circle" />
+              </td>
+              <td>{{ medico.nombre }}</td>
+              <td>{{ medico.hospital.nombre }}</td>
+              <td>
+                <button [routerLink]="['/medico', medico._id] " class="btn btn-primary"><i class="fa fa-pencil-square-o"></i></button> 
+                <button (click)="borrarMedico(medico._id)" class="btn btn-danger"><i class="fa fa-trash-o"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="paginacion">
+          <button class="btn btn-secondary">Anterior</button>
+          <button class="btn btn-secondary">Siguiente</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

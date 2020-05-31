@@ -3,6 +3,6 @@
     
     "html.format.wrapLineLength": 0,
     "terminal.integrated.shellArgs.windows": null,
-    "prettier.printWidth": 300,
+    "prettier.printWidth": 250,
     "prettier.trailingComma": "none"
 }
