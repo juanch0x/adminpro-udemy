@@ -1,0 +1,71 @@
+<div class="row">
+  <!--Usuarios-->
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Usuarios ({{ totalUsuarios }})</h4>
+        <div class="table table-hover">
+          <table *ngIf="totalUsuarios > 0">
+            <tbody>
+              <tr *ngFor="let usuario of usuarios" routerLink="/usuarios">
+                <td>
+                  <img [src]="usuario.img | imagen" class="img-fluid img-50 img-circle pointer" [alt]="usuario.nombre" />
+                </td>
+                <td>{{ usuario.nombre }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="alert alert-info" *ngIf="totalUsuarios == 0">
+            No hay usuarios
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Médicos-->
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Medicos ({{ totalMedicos }})</h4>
+        <div class="table table-hover">
+          <table *ngIf="totalMedicos>0">
+            <tbody>
+              <tr *ngFor="let medico of medicos" [routerLink]="['/medico', medico._id]">
+                <td>
+                  <img [src]="medico.img | imagen" class="img-fluid img-50 img-circle" [alt]="medico.nombre" />
+                </td>
+                <td>{{ medico.nombre }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="alert alert-info" *ngIf="totalMedicos == 0">
+            No hay médicos
+          </div>
+        </div>        
+      </div>
+    </div>
+  </div>
+  <!--Hospitales-->
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Hospitales ({{ totalHospitales }})</h4>
+        <div class="table table-hover">
+          <table *ngIf="totalHospitales > 0">
+            <tbody>
+              <tr *ngFor="let hospital of hospitales" routerLink="/hospitales">
+                <td>
+                  <img [src]="hospital.img | imagen: 'hospital'" [alt]="hospital.nombre" class="img-fluid img-50" />
+                </td>
+                <td>{{ hospital.nombre }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="alert alert-info" *ngIf="totalHospitales == 0">
+            No hay hospitales
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,3 +1,4 @@
+import { SideBarMenu } from './../../models/SideBarMenu.model';
 import { ArchivoService } from './../archivo/archivo.service';
 import { SwalOptions, swalInLine } from './../../extensions/swal';
 import { Usuario } from './../../models/usuario.model';
@@ -6,7 +7,10 @@ import { URL_SERVICIOS, KeysLocalStorage } from './../../config/config';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { swal } from '../../extensions/swal';
+// errors
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class UsuarioService {
@@ -16,6 +20,7 @@ export class UsuarioService {
 
   usuario: Usuario;
   token: string;
+  menu: SideBarMenu[];
 
   public get IsLoggedIn(): boolean {
     return this.token != null && this.token.length > 5;
@@ -36,10 +41,16 @@ export class UsuarioService {
       map((x: any) => {
         // Guardo en localStorage
         const usuario = <Usuario>x.usuario;
-        this.saveInLocalStorage(usuario._id, x.token, usuario);
+        const menu = <SideBarMenu[]>x.menu;
+        this.saveInLocalStorage(usuario._id, x.token, usuario, menu);
         return true;
       })
-    );
+    ).catch(err => {
+      if(err.status === 400){
+        return Observable.throw(err.error.mensaje);
+      }
+      return Observable.throw(err);
+    })
   }
 
   /**
@@ -69,7 +80,7 @@ export class UsuarioService {
     return this.http.put(url, usuario).pipe(
       map((x: any) => {
         const usuario = <Usuario>x.usuario;
-        this.saveInLocalStorage(usuario._id, this.token, usuario);
+        this.saveInLocalStorage(usuario._id, this.token, usuario, this.menu);
         const swalOptions: SwalOptions = {
           text: `El usuario ${usuario.nombre} fué modificado correctamente.`,
           title: 'Éxito',
@@ -89,7 +100,7 @@ export class UsuarioService {
     const url = URL_SERVICIOS + '/usuarios/' + usuario._id + '?token=' + this.token;
     return this.http.put(url, usuario).pipe(
       map((x: any) => {
-        const usuario = <Usuario>x.usuario;        
+        const usuario = <Usuario>x.usuario;
         const swalOptions: SwalOptions = {
           text: `El usuario ${usuario.nombre} fué modificado correctamente.`,
           title: 'Éxito',
@@ -113,7 +124,7 @@ export class UsuarioService {
         const usuario = <Usuario>x.usuario;
         this.usuario.img = usuario.img;
         swalInLine('Imagen actualizada', this.usuario.nombre, 'info');
-        this.saveInLocalStorage(this.usuario._id, this.token, this.usuario);
+        this.saveInLocalStorage(this.usuario._id, this.token, this.usuario, this.menu);
       })
       .catch((error) => {
         console.error(error);
@@ -139,8 +150,11 @@ export class UsuarioService {
     const url = URL_SERVICIOS + '/login/google';
     return this.http.post(url, { token: token }).pipe(
       map((x: any) => {
+        console.log(x);
         const usuario = <Usuario>x.usuario;
-        this.saveInLocalStorage(usuario._id, x.token, usuario);
+        const menu = <SideBarMenu[]>x.menu;
+        console.log('menu', menu);
+        this.saveInLocalStorage(usuario._id, x.token, usuario, menu);
         return true;
       })
     );
@@ -152,12 +166,14 @@ export class UsuarioService {
    * @param token Token para validar la sesión del usuario
    * @param usuario Datos generales del usuario
    */
-  private saveInLocalStorage(id: string, token: string, usuario: Usuario): void {
+  private saveInLocalStorage(id: string, token: string, usuario: Usuario, menu: SideBarMenu[]): void {
     localStorage.setItem(KeysLocalStorage.Usuario.id, usuario._id);
     localStorage.setItem(KeysLocalStorage.Usuario.token, token);
     localStorage.setItem(KeysLocalStorage.Usuario.user, JSON.stringify(usuario));
+    localStorage.setItem(KeysLocalStorage.Usuario.menu, JSON.stringify(menu));
     this.usuario = usuario;
     this.token = token;
+    this.menu = menu;
   }
 
   /**
@@ -167,9 +183,11 @@ export class UsuarioService {
     if (localStorage.getItem(KeysLocalStorage.Usuario.token)) {
       this.token = localStorage.getItem(KeysLocalStorage.Usuario.token);
       this.usuario = JSON.parse(localStorage.getItem(KeysLocalStorage.Usuario.user));
+      this.menu = JSON.parse(localStorage.getItem(KeysLocalStorage.Usuario.menu));
     } else {
       this.token = null;
       this.usuario = null;
+      this.menu = [];
     }
   }
 

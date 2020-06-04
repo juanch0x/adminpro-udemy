@@ -1,13 +1,5 @@
-<!-- busqueda -->
-<div class="row animated fadeIn">
-  <div class="col-12">
-    <div class="card">
-      <div class="card-body">
-        <input #input (keyup)="buscarHospital(input.value)" type="text" class="form-control" placeholder="Buscar hospital" />
-      </div>
-    </div>
-  </div>
-</div>
+<app-filter-list (changedFilterEvent)="filterChanged($event)" placeHolder="Buscar hospital"></app-filter-list>
+
 
 <!-- Tabla -->
 <div class="row animated fadeIn">  

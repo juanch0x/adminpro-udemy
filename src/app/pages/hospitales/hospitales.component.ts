@@ -31,8 +31,8 @@ export class HospitalesComponent implements OnInit {
     });
   }
 
-  buscarHospital(value: string) {
-    if (value == null || value.length < 3) {
+  filterChanged(term: string) {
+    if (term == null || term.length < 3) {
       if (this.filtered) {
         this.cargarHospitales();
         this.filtered = false;
@@ -40,7 +40,7 @@ export class HospitalesComponent implements OnInit {
       return;
     }
 
-    this._hospitalService.buscarHospital(value).subscribe((x) => {
+    this._hospitalService.buscarHospital(term).subscribe((x) => {
       this.hospitales = x;
       this.filtered = true;
     });

@@ -40,7 +40,7 @@ export class UsuariosComponent implements OnInit {
     this.cargarUsuarios();
   }
 
-  buscarUsuario(term: string) {
+  filterChanged(term: string) {
     if (!term) {
       this.cargarUsuarios();
       this.filtered = false;

@@ -1,13 +1,4 @@
-<!-- busqueda -->
-<div class="row animated fadeIn">
-  <div class="col-12">
-    <div class="card">
-      <div class="card-body">
-        <input #input (keyup)="filtrarMedicos(input.value)" type="text" class="form-control" placeholder="Buscar médico" />
-      </div>
-    </div>
-  </div>
-</div>
+<app-filter-list (changedFilterEvent)="filterChanged($event)" placeHolder="Buscar médico"></app-filter-list>
 
 <!-- Tabla -->
 <div class="row animated fadeIn">

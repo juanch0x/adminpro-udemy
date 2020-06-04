@@ -1,3 +1,5 @@
+import { AdminGuard } from './../services/guards/admin.guard';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 import { MedicoComponent } from './medicos/medico.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { HospitalesComponent } from './hospitales/hospitales.component';
@@ -24,9 +26,9 @@ const pagesRoutes: Routes = [
       { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' } },
       { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Account Settings' } },
       { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil' } },
-
+      { path: 'busqueda/:termino', component: BusquedaComponent, data: { titulo: 'Buscador' } },
       // Mantenimiento
-      { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Mantenimiento de Usuarios' } },
+      { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Mantenimiento de Usuarios' }, canActivate: [AdminGuard] },
       { path: 'hospitales', component: HospitalesComponent, data: { titulo: 'Mantenimiento de Hospitales' } },
       { path: 'medicos', component: MedicosComponent, data: { titulo: 'Mantenimiento de Médicos' } },
       { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Actualizar médico' } },

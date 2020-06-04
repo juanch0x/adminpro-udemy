@@ -1,13 +1,4 @@
-<!-- Input de búsqueda -->
-<div class="row animated fadeIn">
-  <div class="col-12">
-    <div class="card">
-      <div class="card-body">
-        <input #input (keyup)="buscarUsuario(input.value)" type="text" class="form-control" placeholder="Buscar usuario" />
-      </div>
-    </div>
-  </div>
-</div>
+<app-filter-list (changedFilterEvent)="filterChanged($event)" [placeHolder]="'Buscar usuario'"></app-filter-list>
 
 <!--  Mensaje de cargando -->
 <div class="row animated fadeIn" *ngIf="cargando">

@@ -26,7 +26,15 @@ export class MedicosComponent implements OnInit {
     });
   }
 
-  filtrarMedicos(term: string) {
+
+  borrarMedico(id: string) {
+    this._medicoService.eliminarMedico(id).subscribe(() => {
+      swalInLine('¡Éxito!', 'El médico fué eliminado correctamente,', 'info');
+      this.cargarMedicos();
+    });
+  }
+  
+  filterChanged(term: string) {
     if (term == null || term.length < 3) {
       if (this.filtered) {
         this.filtered = false;
@@ -40,10 +48,4 @@ export class MedicosComponent implements OnInit {
     });
   }
 
-  borrarMedico(id: string) {
-    this._medicoService.eliminarMedico(id).subscribe(() => {
-      swalInLine('¡Éxito!', 'El médico fué eliminado correctamente,', 'info');
-      this.cargarMedicos();
-    });
-  }
 }

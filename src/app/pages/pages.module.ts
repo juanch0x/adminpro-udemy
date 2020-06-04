@@ -1,3 +1,4 @@
+import { FilterListComponent } from './../components/filter-list/filter-list.component';
 import { ModalUploadComponent } from './../components/modal-upload/modal-upload.component';
 import { PipesModule } from './../pipes/pipes.module';
 import { NgModule } from '@angular/core';
@@ -17,9 +18,10 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { HospitalesComponent } from './hospitales/hospitales.component';
 import { MedicosComponent } from './medicos/medicos.component';
 import { MedicoComponent } from './medicos/medico.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
 @NgModule({
-  declarations: [DashboardComponent, ProgressComponent, Graficas1Component, PagesComponent, IncrementadorComponent, AccountSettingsComponent, PromesasComponent, ProfileComponent, UsuariosComponent, ModalUploadComponent, HospitalesComponent, MedicosComponent, MedicoComponent],
+  declarations: [DashboardComponent, ProgressComponent, Graficas1Component, PagesComponent, IncrementadorComponent, AccountSettingsComponent, PromesasComponent, ProfileComponent, UsuariosComponent, ModalUploadComponent, HospitalesComponent, MedicosComponent, MedicoComponent, FilterListComponent, BusquedaComponent],
   exports: [DashboardComponent, ProgressComponent, Graficas1Component, PagesComponent],
   imports: [SharedModule, PAGES_ROUTES, FormsModule, PipesModule, CommonModule]
 })

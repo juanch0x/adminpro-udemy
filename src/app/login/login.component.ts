@@ -1,5 +1,5 @@
 import { KeysLocalStorage } from './../config/config';
-import { swal } from './../extensions/swal';
+import { swal, swalInLine } from './../extensions/swal';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
@@ -14,7 +14,7 @@ declare const gapi: any;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   recuerdame: boolean;
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       this.auth2 = gapi.auth2.init({
         client_id: '365925477594-vlrt0cr7mbejrfk3ni7tg9hm3scpsfd7.apps.googleusercontent.com',
         cookiepolicy: 'single_host_origin',
-        scope: 'profile email',
+        scope: 'profile email'
       });
 
       this.attachSignIn(document.getElementById('btnGoogle'));
@@ -58,8 +58,7 @@ export class LoginComponent implements OnInit {
       // obtener token
       const token = googleUser.getAuthResponse().id_token;
 
-      this._usuarioService.loginGoogle(token)
-      .subscribe(x => {
+      this._usuarioService.loginGoogle(token).subscribe((x) => {
         window.location.href = '#/dashboard';
       });
     });
@@ -72,8 +71,13 @@ export class LoginComponent implements OnInit {
 
     const usuario = new Usuario(null, form.value.email, form.value.password);
 
-    this._usuarioService.login(usuario, this.recuerdame).subscribe((x) => {
-      this._router.navigate(['/dashboard']);
-    });
+    this._usuarioService.login(usuario, this.recuerdame).subscribe(
+      () => {
+        this._router.navigate(['/dashboard']);
+      },
+      (err) => {
+        swalInLine('¡Error!', err, 'error');
+      }
+    );
   }
 }
